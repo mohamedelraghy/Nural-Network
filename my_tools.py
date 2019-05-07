@@ -397,6 +397,16 @@ def update_parameters(parameters, grads, learning_rate):
     return parameters
 
 
+def predict_one_image(X, parameters):
+
+
+    probas, caches = L_model_forward(X, parameters)
+
+    if probas > .5:
+        return 1
+    else: return 0
+
+
 def predict(X, y, parameters):
     """
     This function is used to predict the results of a  L-layer neural network.

@@ -16,7 +16,10 @@ np.random.seed(1)
 
 
 train_x_orig, train_y, test_x_orig, test_y, classes = load_data()
-
+print(train_x_orig.shape)
+print(train_y.shape)
+print(test_x_orig.shape)
+print(test_y.shape)
 #index = 1
 #plt.imshow(train_x_orig[index])
 #print ("y = " + str(train_y[0,index]) + ". It's a " + classes[train_y[0,index]].decode("utf-8") +  " picture.")
@@ -47,9 +50,17 @@ test_x = test_x_flatten/255.
 
 layers_dims = [12288, 20, 7, 5, 1]
 
-parameters = L_layer_model(train_x, train_y, layers_dims, num_iterations = 2500, print_cost = True)
-print(layers_dims)
 
+
+parameters = L_layer_model(train_x, train_y, layers_dims, num_iterations = 2500, print_cost = True)
+
+index = 1
+plt.imshow(test_x_orig[index])
+print("y = " + str(test_y[0, index]) + ". It's a " + classes[test_y[0, index]].decode("utf-8") + " picture.")
+plt.show()
+print(layers_dims)
+# print(test_x[1,:].shape)
+print(predict_one_image(test_x[:, index].reshape(test_x.shape[0], 1), parameters))
 
 
 pred_train = predict(train_x, train_y, parameters)
