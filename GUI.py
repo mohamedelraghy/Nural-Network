@@ -15,7 +15,7 @@ class GUI:
         # ---------- Root main window ----------
 
         self.root = Tk()
-        self.root.geometry("851x600")
+        self.root.geometry("851x603")
 
         # ---------- Image Label ----------
 
