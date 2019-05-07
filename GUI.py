@@ -15,37 +15,49 @@ class GUI:
         # ---------- Root main window ----------
 
         self.root = Tk()
-        self.root.geometry("851x640")
+        self.root.geometry("851x600")
 
         # ---------- Image Label ----------
 
         self.display = Label(self.root)
         self.set_image("pics/example1.png")
-        self.display.grid(row=0, column=0)
+        self.display.grid(row=0, column=0, rowspan=5)
+
+        # ---------- Weights Label ----------
+
+        self.weightsLabel = Label(self.root, text='weights')
+        self.weightsLabel.grid(row=0, column=1)
+
+        # ---------- Weights List Box ----------
+
+        self.weightListBox = Listbox(self.root, selectmode=SINGLE)
+        self.weightListBox.grid(row=1, column=1)
+
+
+        # ---------- pictures Label ----------
+
+        self.picturesLabel = Label(self.root, text='pictures')
+        self.picturesLabel.grid(row=0, column=2)
+
+        # ---------- Pictures List Box ----------
+
+        self.picturesListBox = Listbox(self.root, selectmode=SINGLE)
+        for pic in self.get_available_images():
+            self.picturesListBox.insert(0, pic)
+        self.picturesListBox.bind("<Double-Button-1>", self.change_image)
+        self.picturesListBox.grid(row=1, column=2)
 
         # ---------- Train button ----------
 
         trainButton = Button(self.root, text="train",
                              command=self.train)
-        trainButton.grid(row=1, column=1, rowspan=2)
+        trainButton.grid(row=4, column=1, rowspan=2)
 
         # ---------- Predict button ----------
 
         predictButton = Button(self.root, text="predict",
                                command=self.predict)
-        predictButton.grid(row=1, column=2, rowspan=2)
-
-        # ---------- Weights List Box ----------
-
-        self.weightListBox = Listbox(self.root, selectmode=SINGLE)
-        self.weightListBox.grid(row=0, column=1)
-
-        # ---------- Pictures List Box ----------
-        self.picturesListBox = Listbox(self.root, selectmode=SINGLE)
-        for pic in self.get_available_images():
-            self.picturesListBox.insert(0, pic)
-        self.picturesListBox.bind("<Double-Button-1>", self.change_image)
-        self.picturesListBox.grid(row=0, column=2)
+        predictButton.grid(row=4, column=2, rowspan=2)
 
         # ---------- Show the window ----------
         self.root.mainloop()
