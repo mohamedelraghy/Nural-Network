@@ -1,1 +1,4 @@
-# Nural-Network
+# Neural-Network
+## Installation 
+
+`sh INSTALL.txt`
