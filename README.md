@@ -1,4 +1,4 @@
 # Neural-Network
 ## Installation 
 
-`sh INSTALL.txt`
+`sh ./INSTALL.sh`
