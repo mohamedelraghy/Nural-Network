@@ -15,7 +15,7 @@ class GUI:
         # ---------- Root main window ----------
 
         self.root = Tk()
-        self.root.geometry("851x603")
+        self.root.geometry("731x403")
 
         # ---------- Image Label ----------
 
@@ -74,7 +74,8 @@ class GUI:
 
     def set_image(self, imagePath):
         self.original = Image.open(imagePath)
-        resized = self.original.resize((400, 600), Image.ANTIALIAS)
+        print(type(self.original))
+        resized = self.original.resize((400, 400), Image.ANTIALIAS)
         self.image = ImageTk.PhotoImage(resized)
         self.display.config(image=self.image)
 
