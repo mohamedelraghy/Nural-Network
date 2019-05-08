@@ -25,7 +25,7 @@ class GUI:
 
         # ---------- Weights Label ----------
 
-        self.weightsLabel = Label(self.root, text='weights')
+        self.weightsLabel = Label(self.root, text='Cost')
         self.weightsLabel.grid(row=0, column=1)
 
         # ---------- Weights List Box ----------
