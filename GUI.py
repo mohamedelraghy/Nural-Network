@@ -14,8 +14,10 @@ class GUI:
         print(self.train_x_orig.shape)
 
         # ---------- Root main window ----------
+        self.trained = False
         self.current_immage = 50
         self.root = Tk()
+        self.root.title("Cat classifier")
         self.root.geometry("731x403")
         self.v = StringVar()
         # ---------- Image Label ----------
@@ -89,6 +91,7 @@ class GUI:
 
     def train(self):
         print("Training!")
+        self.trained=True
         (self.parameters, self.test_x, self.pred_train, self.pred_test) = train(self)
         strtment = "training set accuracy = " + self.pred_train[:5] + "\ntest set accuracy = " + self.pred_test[:5]
         print(strtment)
@@ -97,12 +100,14 @@ class GUI:
         plt.show()
 
     def predict(self):
-        print("predicting")
-        prid = predict_one_image(self.test_x[:, self.current_immage - 1].reshape(self.test_x.shape[0], 1),
-                                 self.parameters)
-        if prid == 1:
-            prid = "a Cat"
-        else:
-            prid = "not a Cat"
-        messagebox.showinfo(title="prediction for image number" + str(self.current_immage),
-                            message="this image is " + prid)
+        if self.trained:
+            print("predicting")
+            prid = predict_one_image(self.test_x[:, self.current_immage - 1].reshape(self.test_x.shape[0], 1),
+                                     self.parameters)
+            if prid == 1:
+                prid = "a Cat"
+            else:
+                prid = "not a Cat"
+            messagebox.showinfo(title="prediction for image number" + str(self.current_immage),
+                                message="this image is " + prid)
+        else: messagebox.showerror(title="untrained error", message="you have to train the model befor use it")
