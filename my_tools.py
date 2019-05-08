@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import h5py
+from test import *
 
 
 def sigmoid(Z):
@@ -438,7 +439,7 @@ def predict(X, y, parameters):
     # print ("true labels: " + str(y))
     print("Accuracy: " + str(np.sum((p == y) / m)))
 
-    return p
+    return str(np.sum((p == y) / m))
 
 
 def print_mislabeled_images(classes, X, y, p):
@@ -463,7 +464,7 @@ def print_mislabeled_images(classes, X, y, p):
                 "utf-8"))
 
 
-def L_layer_model(X, Y, layers_dims, learning_rate=0.0075, num_iterations=3000, print_cost=False):  # lr was 0.009
+def L_layer_model(gui, X, Y, layers_dims, learning_rate=0.0075, num_iterations=3000, print_cost=False):  # lr was 0.009
     """
     Implements a L-layer neural network: [LINEAR->RELU]*(L-1)->LINEAR->SIGMOID.
 
@@ -512,6 +513,8 @@ def L_layer_model(X, Y, layers_dims, learning_rate=0.0075, num_iterations=3000, 
 
         # Print the cost every 100 training example
         if print_cost and i % 100 == 0:
+            gui.add_costs("after iteration %i: %f" % (i, cost))
+            gui.root.update()
             print("Cost after iteration %i: %f" % (i, cost))
         if print_cost and i % 100 == 0:
             costs.append(cost)
@@ -521,6 +524,6 @@ def L_layer_model(X, Y, layers_dims, learning_rate=0.0075, num_iterations=3000, 
     plt.ylabel('cost')
     plt.xlabel('iterations (per tens)')
     plt.title("Learning rate =" + str(learning_rate))
-    plt.show()
+    #plt.show()
 
     return parameters
