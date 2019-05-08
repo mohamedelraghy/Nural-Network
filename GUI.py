@@ -74,11 +74,12 @@ class GUI:
         selectedImage = self.picturesListBox.selection_get()
         print(selectedImage)
         print("Changing image to " + selectedImage)
-        self.current_immage = int(selectedImage);
+        self.current_immage = int(selectedImage)
         self.set_image(selectedImage)
 
     def set_image(self, imagePath):
-        self.original = Image.fromarray(self.test_x_orig[int(imagePath) - 1], mode='RGB')
+        self.original = Image.fromarray(
+            self.test_x_orig[int(imagePath) - 1], mode='RGB')
         resized = self.original.resize((400, 400), Image.ANTIALIAS)
         self.image = ImageTk.PhotoImage(resized)
         self.display.config(image=self.image)
@@ -91,9 +92,10 @@ class GUI:
 
     def train(self):
         print("Training!")
-        self.trained=True
+        self.trained = True
         (self.parameters, self.test_x, self.pred_train, self.pred_test) = train(self)
-        strtment = "training set accuracy = " + self.pred_train[:5] + "\ntest set accuracy = " + self.pred_test[:5]
+        strtment = "training set accuracy = " + \
+            self.pred_train[:5] + "\ntest set accuracy = " + self.pred_test[:5]
         print(strtment)
         self.v.set(strtment)
         print("koko")
@@ -110,4 +112,6 @@ class GUI:
                 prid = "not a Cat"
             messagebox.showinfo(title="prediction for image number" + str(self.current_immage),
                                 message="this image is " + prid)
-        else: messagebox.showerror(title="untrained error", message="you have to train the model befor use it")
+        else:
+            messagebox.showerror(
+                title="untrained error", message="you have to train the model before using it!")

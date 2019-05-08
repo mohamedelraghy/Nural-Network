@@ -89,12 +89,16 @@ def sigmoid_backward(dA, cache):
 
 def load_data():
     train_dataset = h5py.File('train_catvnoncat.h5', "r")
-    train_set_x_orig = np.array(train_dataset["train_set_x"][:])  # your train set features
-    train_set_y_orig = np.array(train_dataset["train_set_y"][:])  # your train set labels
+    # your train set features
+    train_set_x_orig = np.array(train_dataset["train_set_x"][:])
+    train_set_y_orig = np.array(
+        train_dataset["train_set_y"][:])  # your train set labels
 
     test_dataset = h5py.File('test_catvnoncat.h5', "r")
-    test_set_x_orig = np.array(test_dataset["test_set_x"][:])  # your test set features
-    test_set_y_orig = np.array(test_dataset["test_set_y"][:])  # your test set labels
+    # your test set features
+    test_set_x_orig = np.array(test_dataset["test_set_x"][:])
+    test_set_y_orig = np.array(
+        test_dataset["test_set_y"][:])  # your test set labels
 
     classes = np.array(test_dataset["list_classes"][:])  # the list of classes
 
@@ -159,7 +163,8 @@ def initialize_parameters_deep(layer_dims):
             layer_dims[l - 1])  # *0.01
         parameters['b' + str(l)] = np.zeros((layer_dims[l], 1))
 
-        assert (parameters['W' + str(l)].shape == (layer_dims[l], layer_dims[l - 1]))
+        assert (parameters['W' + str(l)].shape ==
+                (layer_dims[l], layer_dims[l - 1]))
         assert (parameters['b' + str(l)].shape == (layer_dims[l], 1))
 
     return parameters
@@ -246,7 +251,8 @@ def L_model_forward(X, parameters):
         caches.append(cache)
 
     # Implement LINEAR -> SIGMOID. Add "cache" to the "caches" list.
-    AL, cache = linear_activation_forward(A, parameters['W' + str(L)], parameters['b' + str(L)], activation="sigmoid")
+    AL, cache = linear_activation_forward(
+        A, parameters['W' + str(L)], parameters['b' + str(L)], activation="sigmoid")
     caches.append(cache)
 
     assert (AL.shape == (1, X.shape[1]))
@@ -269,9 +275,11 @@ def compute_cost(AL, Y):
     m = Y.shape[1]
 
     # Compute loss from aL and y.
-    cost = (1. / m) * (-np.dot(Y, np.log(AL).T) - np.dot(1 - Y, np.log(1 - AL).T))
+    cost = (1. / m) * (-np.dot(Y, np.log(AL).T) -
+                       np.dot(1 - Y, np.log(1 - AL).T))
 
-    cost = np.squeeze(cost)  # To make sure your cost's shape is what we expect (e.g. this turns [[17]] into 17).
+    # To make sure your cost's shape is what we expect (e.g. this turns [[17]] into 17).
+    cost = np.squeeze(cost)
     assert (cost.shape == ())
 
     return cost
@@ -392,20 +400,22 @@ def update_parameters(parameters, grads, learning_rate):
 
     # Update rule for each parameter. Use a for loop.
     for l in range(L):
-        parameters["W" + str(l + 1)] = parameters["W" + str(l + 1)] - learning_rate * grads["dW" + str(l + 1)]
-        parameters["b" + str(l + 1)] = parameters["b" + str(l + 1)] - learning_rate * grads["db" + str(l + 1)]
+        parameters["W" + str(l + 1)] = parameters["W" + str(l + 1)] - \
+            learning_rate * grads["dW" + str(l + 1)]
+        parameters["b" + str(l + 1)] = parameters["b" + str(l + 1)] - \
+            learning_rate * grads["db" + str(l + 1)]
 
     return parameters
 
 
 def predict_one_image(X, parameters):
 
-
     probas, caches = L_model_forward(X, parameters)
 
     if probas > .5:
         return 1
-    else: return 0
+    else:
+        return 0
 
 
 def predict(X, y, parameters):
@@ -492,22 +502,22 @@ def L_layer_model(gui, X, Y, layers_dims, learning_rate=0.0075, num_iterations=3
     for i in range(0, num_iterations):
 
         # Forward propagation: [LINEAR -> RELU]*(L-1) -> LINEAR -> SIGMOID.
-        ### START CODE HERE ### (≈ 1 line of code)
+        # START CODE HERE ### (≈ 1 line of code)
         AL, caches = L_model_forward(X, parameters)
         ### END CODE HERE ###
 
         # Compute cost.
-        ### START CODE HERE ### (≈ 1 line of code)
+        # START CODE HERE ### (≈ 1 line of code)
         cost = compute_cost(AL, Y)
         ### END CODE HERE ###
 
         # Backward propagation.
-        ### START CODE HERE ### (≈ 1 line of code)
+        # START CODE HERE ### (≈ 1 line of code)
         grads = L_model_backward(AL, Y, caches)
         ### END CODE HERE ###
 
         # Update parameters.
-        ### START CODE HERE ### (≈ 1 line of code)
+        # START CODE HERE ### (≈ 1 line of code)
         parameters = update_parameters(parameters, grads, learning_rate)
         ### END CODE HERE ###
 
@@ -524,6 +534,6 @@ def L_layer_model(gui, X, Y, layers_dims, learning_rate=0.0075, num_iterations=3
     plt.ylabel('cost')
     plt.xlabel('iterations (per tens)')
     plt.title("Learning rate =" + str(learning_rate))
-    #plt.show()
+    # plt.show()
 
     return parameters
